@@ -1,12 +1,23 @@
 Package: bootstrapCppRs
-Type: Package
-Title: What the Package Does in One 'Title Case' Line
-Version: 1.0
-Date: 2020-05-18
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does as one or more
-        full sentences.
-License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.4)
-LinkingTo: Rcpp
+Title: Bootstraps in R, C++, and rust
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Jordan Mark",
+           family = "Barbone",
+           role = c("aut", "cre"),
+           email = "jmbarbone@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Require: 
+    R,
+    stats
+LinkingTo: 
+    Rcpp
+Imports: 
+    Rcpp,
+    microbenchmark

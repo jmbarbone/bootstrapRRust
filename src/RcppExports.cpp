@@ -5,19 +5,21 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP _bootstrapCppRs_rcpp_hello_world() {
+// bootstrap_cpp
+NumericVector bootstrap_cpp(NumericVector x, int R);
+RcppExport SEXP _bootstrapCppRs_bootstrap_cpp(SEXP xSEXP, SEXP RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type R(RSEXP);
+    rcpp_result_gen = Rcpp::wrap(bootstrap_cpp(x, R));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_bootstrapCppRs_rcpp_hello_world", (DL_FUNC) &_bootstrapCppRs_rcpp_hello_world, 0},
+    {"_bootstrapCppRs_bootstrap_cpp", (DL_FUNC) &_bootstrapCppRs_bootstrap_cpp, 2},
     {NULL, NULL, 0}
 };
 
