@@ -1,11 +1,13 @@
-#include <stdint.h>
+#include <R.h>
+#include <RInternals.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-ScalarInteger bootstrap();
+REALSXP bootstrap();
 
 #ifdef __cplusplus
 }
+
 #endif

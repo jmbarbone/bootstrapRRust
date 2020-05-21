@@ -1,7 +1,5 @@
 // Import dependencies
-extern crate libc;
-extern crate rand;
-extern crate stats;
+// extern crate rand;
 
 // Modules are other .rs source files
 mod bootstrap;

@@ -1,13 +1,14 @@
 #define R_NO_REMAP
-#define STRICT_R_HEADERS
+#include <R.h>
 #include <Rinternals.h>
 
 // Import C headers for rust API
 #include "myrustlib/api.h"
 
 // Actual Wrappers
-SEXP bootstrap_wrapper(){
-  return Rf_ScalarReal(bootstrap());
+SEXP bootstrap_wrapper(SEXP x, int R){
+  int n = length(x);
+  return Rf_ScalarReal(Rf_allocVector3(bootstrap(), n));
 }
 
 // Standard R package stuff
