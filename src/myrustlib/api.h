@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-REALSXP bootstrap();
+void bootstrap_rs_rs();
 
 #ifdef __cplusplus
 }

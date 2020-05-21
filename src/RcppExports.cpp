@@ -18,11 +18,8 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP bootstrap_rs_wrapper(SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"_bootstrapCppRs_bootstrap_cpp", (DL_FUNC) &_bootstrapCppRs_bootstrap_cpp, 2},
-    {"bootstrap_rs_wrapper", (DL_FUNC) &bootstrap_rs_wrapper, 2},
     {NULL, NULL, 0}
 };
 

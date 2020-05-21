@@ -62,15 +62,8 @@ run_benchmarks <- function(x = runif(2000), R = 2000, times = 10, ...) {
     bootstrap_r(x, R),
     bootstrap_loop(x, R),
     bootstrap_cpp(x, R),
+    # bootstrap_rs(x, R),
     times = times,
     ...
   )
-}
-
-#' @rdname bootstrap
-#' @export
-#' @examples bootstrap_rs()
-#' @useDynLib hellorust bootstrap_rs_wrapper
-bootstrap_rs <- function(x, R) {
-  .Call(bootstrap_rs_wrapper, x, R)
 }
