@@ -1,23 +1,20 @@
-Package: bootstrapCppRs
-Title: Bootstraps in R, C++, and rust
+Package: bootstrapRRust
+Title: Bootstraps in R and Rust
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Jordan Mark",
            family = "Barbone",
            role = c("aut", "cre"),
            email = "jmbarbone@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           comment = c(ORCID = "0000-0001-9788-3628"))
+Description: Test bootstrap timings between R and Rust.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Require: 
     R,
     stats
 LinkingTo: 
-    Rcpp
 Imports: 
-    Rcpp,
     microbenchmark

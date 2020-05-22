@@ -6,15 +6,17 @@
 #include "myrustlib/api.h"
 
 // Actual Wrappers
-void bootstrap_rs_rs();
+SEXP bootstrap_wrapper(SEXP x, SEXP R){
+  void bootstrap_rs(x, R);
+}
 
 // Standard R package stuff
-// static const R_CallMethodDef CallEntries[] = {
-//   {"bootstrap_rs_rs", (DL_FUNC) &bootstrap_rs_rs, 0},
-//   {NULL, NULL, 0}
-// };
+static const R_CallMethodDef CallEntries[] = {
+  {"bootstrap_wrapper", (DL_FUNC) &bootstrap_wrapper, 2},
+  {NULL, NULL, 0}
+};
 
-// void R_init_bootstrapCppRs(DllInfo *dll) {
-//   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-//   R_useDynamicSymbols(dll, FALSE);
-// }
+void R_init_bootstrapRRust(DllInfo *dll) {
+  R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+  R_useDynamicSymbols(dll, FALSE);
+}

@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-void bootstrap_rs_rs();
+void bootstrap_rs();
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 #' Bootstraps
 #' 
-#' Bootstrap functions in R, C++, and rust
+#' Bootstrap functions in R and Rust
 #' 
 #' @param x A vector of numbers
 #' @param R Number of replications
@@ -11,7 +11,13 @@
 #' @name bootstrap
 #' @importFrom stats sd runif
 #' @examples
-#' bootstrap_r(runif(100), 100)
+#' \dontrun{
+#' numbers <- runif(100)
+#' resamples <- 100
+#' bootstrap_r(numbers, samples)
+#' bootstrap_loop(numbers, samples)
+#' bootstrap_rs(numbers, samples)
+#' }
 
 bootstrap_r <- function(x, R) {
   estimate <- mean(x, na.rm = TRUE)
@@ -56,13 +62,20 @@ bootstrap_loop <- function(x, R) {
 
 #' @rdname bootstrap
 #' @export
+#' @useDynLib bootstrapRRust bootstrap_wrapper
+bootstrap_rs <- function(x, R) {
+  .Call(bootstrap_wrapper, x, R)
+}
+
+
+#' @rdname bootstrap
+#' @export
 #' @importFrom microbenchmark microbenchmark
 run_benchmarks <- function(x = runif(2000), R = 2000, times = 10, ...) {
   microbenchmark(
     bootstrap_r(x, R),
     bootstrap_loop(x, R),
-    bootstrap_cpp(x, R),
-    # bootstrap_rs(x, R),
+    bootstrap_rs(x, R),
     times = times,
     ...
   )
