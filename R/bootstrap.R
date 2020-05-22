@@ -14,9 +14,9 @@
 #' \dontrun{
 #' numbers <- runif(100)
 #' resamples <- 100
-#' bootstrap_r(numbers, samples)
-#' bootstrap_loop(numbers, samples)
-#' bootstrap_rs(numbers, samples)
+#' bootstrap_r(numbers, resamples)
+#' bootstrap_loop(numbers, resamples)
+#' bootstrap_rs(numbers, resamples)
 #' }
 
 bootstrap_r <- function(x, R) {
@@ -73,10 +73,21 @@ bootstrap_rs <- function(x, R) {
 #' @importFrom microbenchmark microbenchmark
 run_benchmarks <- function(x = runif(2000), R = 2000, times = 10, ...) {
   microbenchmark(
-    bootstrap_r(x, R),
-    bootstrap_loop(x, R),
-    bootstrap_rs(x, R),
+    `base R vapply` = bootstrap_r(x, R),
+    `base R loop` = bootstrap_loop(x, R),
+    `Rust` = bootstrap_rs(x, R), 
     times = times,
     ...
   )
+}
+
+#' @rdname bootstrap
+#' @export
+main <- function() {
+  x <- runif(2000)
+  R <- 200
+  bsr <- bootstrap_r(x, R)
+  bsrs <- bootstrap_rs(x, R)
+  plot(density(bsr), main = "Bootstrapped distributed of test statistic")
+  lines(density(bsrs))
 }

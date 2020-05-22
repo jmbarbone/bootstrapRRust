@@ -6,6 +6,7 @@
 \alias{bootstrap_loop}
 \alias{bootstrap_rs}
 \alias{run_benchmarks}
+\alias{main}
 \title{Bootstraps}
 \usage{
 bootstrap_r(x, R)
@@ -15,6 +16,8 @@ bootstrap_loop(x, R)
 bootstrap_rs(x, R)
 
 run_benchmarks(x = runif(2000), R = 2000, times = 10, ...)
+
+main()
 }
 \arguments{
 \item{x}{A vector of numbers}
@@ -32,8 +35,8 @@ Bootstrap functions in R and Rust
 \dontrun{
 numbers <- runif(100)
 resamples <- 100
-bootstrap_r(numbers, samples)
-bootstrap_loop(numbers, samples)
-bootstrap_rs(numbers, samples)
+bootstrap_r(numbers, resamples)
+bootstrap_loop(numbers, resamples)
+bootstrap_rs(numbers, resamples)
 }
 }
