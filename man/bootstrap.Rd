@@ -4,12 +4,15 @@
 \alias{bootstrap}
 \alias{bootstrap_r}
 \alias{bootstrap_loop}
+\alias{bootstrap_rs}
 \alias{run_benchmarks}
 \title{Bootstraps}
 \usage{
 bootstrap_r(x, R)
 
 bootstrap_loop(x, R)
+
+bootstrap_rs(x, R)
 
 run_benchmarks(x = runif(2000), R = 2000, times = 10, ...)
 }
@@ -20,11 +23,17 @@ run_benchmarks(x = runif(2000), R = 2000, times = 10, ...)
 
 \item{times}{Number of times to run benchmarks}
 
-\item{...}{Additional arguments passed to \code{\link[microbenchmark:microbenchmark]{microbenchmark::microbenchmark()}}}
+\item{...}{Additional arguments passed to [microbenchmark::microbenchmark()]}
 }
 \description{
-Bootstrap functions in R, C++, and rust
+Bootstrap functions in R and Rust
 }
 \examples{
-bootstrap_r(runif(100), 100)
+\dontrun{
+numbers <- runif(100)
+resamples <- 100
+bootstrap_r(numbers, samples)
+bootstrap_loop(numbers, samples)
+bootstrap_rs(numbers, samples)
+}
 }

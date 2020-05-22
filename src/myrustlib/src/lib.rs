@@ -5,4 +5,4 @@
 mod bootstrap;
 
 // Export functions called by R
-pub use bootstrap::bootstrap_rs_rs;
+pub use bootstrap::bootstrap_rs;
