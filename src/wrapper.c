@@ -7,7 +7,7 @@
 
 // Actual Wrappers
 SEXP bootstrap_wrapper(SEXP x, SEXP R){
-  void bootstrap_rs(x, R);
+  void bootstrap_rs(SEXP x, SEXP R);
 }
 
 // Standard R package stuff

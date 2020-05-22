@@ -1,13 +1,15 @@
-#include <R.h>
-#include <RInternals.h>
+#include <cstdarg>
+#include <cstdint>
+#include <cstdlib>
+#include <new>
 
-#ifdef __cplusplus
+
+template<typename T>
+struct Vec;
+
+
 extern "C" {
-#endif
 
-void bootstrap_rs();
+Vec<float> bootstrap_rs(const Vec<float> *x, const int32_t *_r);
 
-#ifdef __cplusplus
-}
-
-#endif
+} // extern "C"
