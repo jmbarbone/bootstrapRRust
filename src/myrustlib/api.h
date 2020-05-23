@@ -1,15 +1,9 @@
-#include <cstdarg>
-#include <cstdint>
-#include <cstdlib>
-#include <new>
+#include <stdarg.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 
-template<typename T>
-struct Vec;
+typedef struct Vec_f32 Vec_f32;
 
-
-extern "C" {
-
-Vec<float> bootstrap_rs(const Vec<float> *x, const int32_t *_r);
-
-} // extern "C"
+Vec_f32 bootstrap_rs(const Vec_f32 *x, const int32_t *_r);

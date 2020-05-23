@@ -1,7 +1,7 @@
 use rand::Rng;
 
 #[no_mangle]
-pub extern "C" fn bootstrap_rs(x: &Vec<f32>, _r: &i32) -> Vec<f32> {
+pub extern fn bootstrap_rs(x: &Vec<f32>, _r: &i32) -> Vec<f32> {
     
     let n = x.len() as i32;
     let estimate = mean(&x) as f32;

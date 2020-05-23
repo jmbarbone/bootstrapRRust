@@ -9,7 +9,7 @@ $(SHLIB): $(STATLIB)
 
 $(STATLIB):
 	cargo build --target=$(TARGET) --release --manifest-path=myrustlib/Cargo.toml
-	cbindgen --config cbindgen.toml --crate myrustlib --output api.h 
+	#cbindgen --config cbindgen.toml --crate myrustlib --output api.h 
 
 clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) myrustlib/target
