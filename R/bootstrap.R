@@ -61,10 +61,11 @@ bootstrap_loop <- function(x, R) {
 }
 
 #' @rdname bootstrap
-#' @exportus`us`
+#' @export
 #' @useDynLib bootstrapRRust bootstrap_wrapper
+#' @export
 bootstrap_rs <- function(x, R) {
-  .Call(boostrap_wrapper, x, R)
+  .Call(bootstrap_wrapper, x, R)
 }
 
 

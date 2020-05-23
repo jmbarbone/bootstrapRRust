@@ -1,9 +1,19 @@
-#include <stdarg.h>
-#include <stdbool.h>
-#include <stdint.h>
+// #include <stdarg.h>
+// #include <stdint.h>
 #include <stdlib.h>
+// #include <new>
 
 
-typedef struct Vec_f32 Vec_f32;
+// template<typename T>
+// struct Vec;
 
-Vec_f32 bootstrap_rs(const Vec_f32 *x, const int32_t *_r);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+  
+  double* bootstrap_rs(double x, int _r);
+  
+#ifdef __cplusplus
+}
+#endif
