@@ -29,11 +29,9 @@ run_benchmarks(x = runif(2000), R = 2000, times = 10, ...)
 Bootstrap functions in R and Rust
 }
 \examples{
-\dontrun{
 numbers <- runif(100)
 resamples <- 100
 bootstrap_r(numbers, samples)
 bootstrap_loop(numbers, samples)
-bootstrap_rs(numbers, samples)
-}
+\dontrun{bootstrap_rs(numbers, samples)}
 }
