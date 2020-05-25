@@ -32,11 +32,10 @@ main()
 Bootstrap functions in R and Rust
 }
 \examples{
-\dontrun{
 numbers <- runif(100)
 resamples <- 100
+  
 bootstrap_r(numbers, resamples)
 bootstrap_loop(numbers, resamples)
 bootstrap_rs(numbers, resamples)
-}
 }

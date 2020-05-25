@@ -4,3 +4,7 @@
     "The only thing that matters is that you run this function:\n",
     "\trun_benchmarks()"))
 }
+
+.onUnload <- function (libpath) {
+  library.dynam.unload("bootstrapRRust", libpath)
+}

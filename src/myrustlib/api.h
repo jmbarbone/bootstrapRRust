@@ -1,13 +1,11 @@
-#include <R.h>
-#include <RInternals.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void bootstrap_rs();
-
+  double * bootstrap_rs();
+  
 #ifdef __cplusplus
 }
-
 #endif
