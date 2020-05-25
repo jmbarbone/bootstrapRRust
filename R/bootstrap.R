@@ -11,7 +11,6 @@
 #' @name bootstrap
 #' @importFrom stats sd runif
 #' @examples
-#' \dontrun{
 #' numbers <- runif(100)
 #' resamples <- 100
 #' bootstrap_r(numbers, resamples)
@@ -43,8 +42,8 @@ bootstrap_loop <- function(x, R) {
   estimate <- mean(x, na.rm = TRUE)
   n <- length(x)
   out <- double(R)
-
-  for(i in out) {
+  
+  for(i in seq_along(out)) {
     samp <- sample(x, length(x), replace = TRUE)
     samp_estimate <- mean(samp, na.rm = TRUE)
     se <- sd(samp, na.rm = TRUE) / sqrt(n)
@@ -63,8 +62,9 @@ bootstrap_loop <- function(x, R) {
 #' @rdname bootstrap
 #' @export
 #' @useDynLib bootstrapRRust bootstrap_wrapper
+#' @export
 bootstrap_rs <- function(x, R) {
-  .Call(bootstrap_wrapper, x, R)
+  .Call(bootstrap_wrapper, as.double(x), as.integer(R))
 }
 
 

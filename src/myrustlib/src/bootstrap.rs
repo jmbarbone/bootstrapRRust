@@ -1,30 +1,58 @@
+// extern crate rand;
 use rand::Rng;
+use libc::c_double;
+use libc::c_int;
+use std::slice;
+use std::mem::forget;
 
+// x = the vector of numbers to sample
+// _r = the number of resamples to perform on the vector
+// size = the size of the vector
 #[no_mangle]
-pub extern "C" fn bootstrap_rs(x: &Vec<f32>, _r: &i32) -> Vec<f32> {
-    
-    let n = x.len() as i32;
-    let estimate = mean(&x) as f32;
-    let mut out = vec![];
+pub extern fn bootstrap_rs(x: *const c_double, _r: c_int, size: c_int) -> *const c_double {
+    let n = size as usize;
 
-    for _ in 0..*_r {
+    // Slice apart pointer
+    let slices = unsafe{
+        assert!(!x.is_null());
+        slice::from_raw_parts(x, n)
+    };
 
-        let samp: Vec<f32> = sample_with_replacement(x, &(n as usize));
-        let samp_est: f32 = mean(&samp);
-        let mut samp_se: f32 = sterr(&samp);
+    // Transfer slices into vec f64
+    let mut numbers: Vec<f64> = vec![0.0; n];
+
+    for i in 0..n {
+        numbers[i] = slices[i] as f64;
+    }
+
+    forget(slices);
+
+    // Perform first sample
+    let estimate = mean(&numbers) as f64;
+    let mut result: Vec<f64> = vec![0.0; _r as usize];
+
+    for i in 0.._r as usize {
+
+        let samp: Vec<f64> = sample_with_replacement(&numbers, &(n as usize));
+        let samp_est: f64 = mean(&samp);
+        let mut samp_se: f64 = sterr(&samp);
 
         if samp_se == 0.0 {
-            samp_se = 1.0 / (2.0 * n as f32);
+            samp_se = 1.0 / (2.0 * n as f64);
         }
 
-        out.push((samp_est - estimate) / samp_se);
+        result[i] = ((samp_est - estimate) / samp_se) as f64;
     }
+
+    forget(estimate);
+    let out = result.as_mut_ptr();
+    forget(result);
     out
 }
 
-fn sample_with_replacement(x_vector: &Vec<f32>, n_replacements: &usize) -> Vec<f32> {
+pub fn sample_with_replacement(x_vector: &Vec<f64>, n_replacements: &usize) -> Vec<f64> {
     let mut rng = rand::thread_rng();
-    let size:usize = x_vector.len();
+    let size: usize = x_vector.len();
     
     vec![0; *n_replacements]
         .into_iter()
@@ -33,26 +61,26 @@ fn sample_with_replacement(x_vector: &Vec<f32>, n_replacements: &usize) -> Vec<f
         }).collect()
 }
 
-fn mean(numbers: &Vec<f32>) -> f32 {
-    numbers.iter().sum::<f32>() as f32 / numbers.len() as f32
+pub fn mean(numbers: &Vec<f64>) -> f64 {
+    numbers.iter().sum::<f64>() as f64 / numbers.len() as f64
 }
 
-fn variance(numbers: &Vec<f32>) -> f32 {
+pub fn variance(numbers: &Vec<f64>) -> f64 {
     let n: usize = numbers.len();
-    let estimate: f32 = mean(&numbers);
-    let mut diffs: Vec<f32> = vec![];
+    let estimate: f64 = mean(&numbers);
+    let mut diffs: Vec<f64> = vec![];
     for i in numbers.iter() {
-        let d = i - estimate;
+        let d: f64 = i - estimate;
         diffs.push(d * d);
     }
-    diffs.iter().sum::<f32>() / (n - 1) as f32
+    diffs.iter().sum::<f64>() / (n - 1) as f64
 }
 
-fn stdev(numbers: &Vec<f32>) -> f32 {
-    variance(&numbers).sqrt() as f32
+pub fn stdev(numbers: &Vec<f64>) -> f64 {
+    variance(&numbers).sqrt() as f64
 }
 
-fn sterr(numbers: &Vec<f32>) -> f32 {
-    stdev(&numbers) as f32 / (numbers.len() as f32).sqrt() as f32
+pub fn sterr(numbers: &Vec<f64>) -> f64 {
+    stdev(&numbers) as f64 / (numbers.len() as f64).sqrt() as f64
 }
 

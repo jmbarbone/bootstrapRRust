@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+set.seed(42)
 ```
 
 # bootstrapRRust
@@ -34,5 +35,17 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(bootstrapRRust)
-run_benchmarks(x = rchisq(1000, 2), R = 2000)
+run_benchmarks(x = rchisq(2000, 2), R = 5000)
 ```
+
+```{r graphs}
+a <- rpois(2000, 5)
+x <- bootstrap_r(a, 500)
+y <- bootstrap_rs(a, 500)
+z <- bootstrap_loop(a, 500)
+
+plot(density(x), col = "red", main = "Density distribution of resampling test statistics")
+lines(density(y), col = "blue")
+lines(density(z), col = "green")
+```
+
