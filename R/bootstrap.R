@@ -16,7 +16,6 @@
 #' bootstrap_r(numbers, resamples)
 #' bootstrap_loop(numbers, resamples)
 #' bootstrap_rs(numbers, resamples)
-#' }
 
 bootstrap_r <- function(x, R) {
   estimate <- mean(x, na.rm = TRUE)
