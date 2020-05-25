@@ -35,15 +35,17 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(bootstrapRRust)
-# run_benchmarks(x = rchisq(1000, 2), R = 2000)
+run_benchmarks(x = rchisq(2000, 2), R = 5000)
 ```
 
-```{r}
-a <- runif(200)
-x <- bootstrap_r(a, 2000)
-# y <- bootstrap_rs(a, 2000)
+```{r graphs}
+a <- rpois(2000, 5)
+x <- bootstrap_r(a, 500)
+y <- bootstrap_rs(a, 500)
+z <- bootstrap_loop(a, 500)
 
-plot(density(x))
-# lines(density(y))
+plot(density(x), col = "red", main = "Density distribution of resampling test statistics")
+lines(density(y), col = "blue")
+lines(density(z), col = "green")
 ```
 

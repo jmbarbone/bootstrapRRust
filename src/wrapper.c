@@ -8,8 +8,19 @@
 
 // Actual Wrappers
 SEXP bootstrap_wrapper(SEXP x, SEXP R){
-  //double* xx = REAL(x);
-  return Rf_ScalarReal(*bootstrap_rs(*REAL(x), Rf_asInteger(R)));
+  int resamples = Rf_asInteger(R);
+  int n = Rf_length(x);
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, resamples));
+  // vector, resamples, size of vector
+  double *result = bootstrap_rs(REAL(x), resamples, n);
+  
+  // output will be the resamples
+  for(int i = 0; i < resamples; i++) {
+    REAL(out)[i] = result[i];
+  }
+  
+  UNPROTECT(1);
+  return out;
 }
 
 // Standard R package stuff

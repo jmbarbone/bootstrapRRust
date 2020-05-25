@@ -63,7 +63,7 @@ bootstrap_loop <- function(x, R) {
 #' @useDynLib bootstrapRRust bootstrap_wrapper
 #' @export
 bootstrap_rs <- function(x, R) {
-  .Call(bootstrap_wrapper, x, R)
+  .Call(bootstrap_wrapper, as.double(x), as.integer(R))
 }
 
 
