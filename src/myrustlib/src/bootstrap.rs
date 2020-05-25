@@ -5,7 +5,6 @@ use libc::c_int;
 use std::slice;
 use std::mem::forget;
 
-
 // x = the vector of numbers to sample
 // _r = the number of resamples to perform on the vector
 // size = the size of the vector
