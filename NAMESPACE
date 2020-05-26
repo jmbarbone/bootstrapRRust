@@ -3,7 +3,7 @@
 export(bootstrap_loop)
 export(bootstrap_r)
 export(bootstrap_rs)
-export(main)
+export(main_plot)
 export(run_benchmarks)
 importFrom(microbenchmark,microbenchmark)
 importFrom(stats,runif)

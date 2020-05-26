@@ -26,10 +26,10 @@ devtools::install_github("jmbarbone/bootstrapRRust")
 library(bootstrapRRust)
 run_benchmarks(x = rchisq(5000, 3), R = 2000)
 #> Unit: milliseconds
-#>           expr      min       lq     mean   median       uq       max neval cld
-#>  base R vapply 801.9270 804.4344 870.0758 811.9909 879.7307 1148.4263    10   b
-#>    base R loop 796.9383 809.3787 839.4588 819.1260 859.7174  969.6399    10   b
-#>           Rust 216.3695 234.2178 259.3166 252.5440 289.6848  313.3235    10  a
+#>    expr      min       lq     mean   median       uq       max neval cld
+#>  vapply 806.7684 818.4216 854.7491 833.5918 881.6042 1000.0573    10   b
+#>    loop 791.8361 801.4223 850.0727 824.7459 865.0181 1015.2215    10   b
+#>    Rust 220.0761 226.7964 256.2649 251.2126 283.7543  311.2337    10  a
 ```
 
 <details>
@@ -73,17 +73,8 @@ sessionInfo()
 
 ## Graph results
 
-Update `boostrapRRust::main()`to produce this
-
 ``` r
-a <- rpois(2000, 5)
-x <- bootstrap_r(a, 500)
-y <- bootstrap_loop(a, 500)
-z <- bootstrap_rs(a, 500)
-
-plot(density(x), col = "red", main = "Density distribution of resampling test statistics")
-lines(density(y), col = "green")
-lines(density(z), col = "blue")
+main_plot()
 ```
 
 <img src="man/figures/README-graph-1.png" width="100%" />

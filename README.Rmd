@@ -44,15 +44,6 @@ sessionInfo()
 
 ## Graph results
 
-Update `boostrapRRust::main()`to produce this
-
 ```{r graph}
-a <- rpois(2000, 5)
-x <- bootstrap_r(a, 500)
-y <- bootstrap_loop(a, 500)
-z <- bootstrap_rs(a, 500)
-
-plot(density(x), col = "red", main = "Density distribution of resampling test statistics")
-lines(density(y), col = "green")
-lines(density(z), col = "blue")
+main_plot()
 ```

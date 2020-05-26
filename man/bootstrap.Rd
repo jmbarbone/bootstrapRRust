@@ -6,7 +6,7 @@
 \alias{bootstrap_loop}
 \alias{bootstrap_rs}
 \alias{run_benchmarks}
-\alias{main}
+\alias{main_plot}
 \title{Bootstraps}
 \usage{
 bootstrap_r(x, R)
@@ -17,7 +17,7 @@ bootstrap_rs(x, R)
 
 run_benchmarks(x = runif(2000), R = 2000, times = 10, ...)
 
-main()
+main_plot()
 }
 \arguments{
 \item{x}{A vector of numbers}

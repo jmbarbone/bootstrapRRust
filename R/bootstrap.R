@@ -35,6 +35,7 @@ bootstrap_r <- function(x, R) {
   }, double(1))
 }
 
+
 #' @rdname bootstrap
 #' @export
 bootstrap_loop <- function(x, R) {
@@ -58,6 +59,7 @@ bootstrap_loop <- function(x, R) {
 
 }
 
+
 #' @rdname bootstrap
 #' @export
 #' @useDynLib bootstrapRRust bootstrap_wrapper
@@ -72,21 +74,27 @@ bootstrap_rs <- function(x, R) {
 #' @importFrom microbenchmark microbenchmark
 run_benchmarks <- function(x = runif(2000), R = 2000, times = 10, ...) {
   microbenchmark(
-    `base R vapply` = bootstrap_r(x, R),
-    `base R loop` = bootstrap_loop(x, R),
+    `vapply` = bootstrap_r(x, R),
+    `loop` = bootstrap_loop(x, R),
     `Rust` = bootstrap_rs(x, R),
     times = times,
     ...
   )
 }
 
+
 #' @rdname bootstrap
 #' @export
-main <- function() {
-  x <- runif(2000)
-  R <- 200
-  bsr <- bootstrap_r(x, R)
-  bsrs <- bootstrap_rs(x, R)
-  plot(density(bsr), main = "Bootstrapped distributed of test statistic")
-  lines(density(bsrs))
+main_plot <- function() {
+  x <- rpois(5000, 3)
+  R <- 2000
+  plot(density(bootstrap_r(x, R)), col = "red", lwd = 2,
+       main = "Distribution of resampled test statistics",
+       sub = paste0("Original vector size: ", length(x)))
+  lines(density(bootstrap_loop(x, R)), col = "green", lwd = 2)
+  lines(density(bootstrap_rs(x, R)), col = "blue", lwd = 2)
+  legend("bottomright",
+         legend = c("vapply", "loop", "Rust"),
+         col = c("red", "green", "blue"),
+         lwd = 2)
 }

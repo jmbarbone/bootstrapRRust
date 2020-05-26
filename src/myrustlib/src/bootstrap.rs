@@ -14,17 +14,18 @@ pub extern fn bootstrap_rs(x: *const c_double, _r: c_int, size: c_int) -> *const
     let n2: f64 = 1.0 / (2.0 * n as f64);
 
     // Slice apart pointer and transfer to vector
-    let numbers: Vec<f64> = unsafe{
+    let numbers = unsafe{
         // assert!(!x.is_null());
         slice::from_raw_parts(x, n)
-    }.iter().cloned().collect();
+        // Box::from_raw(x; n)
+    }.iter().cloned().collect::<Vec<f64>>();
+
 
     let estimate: f64 = mean(&numbers);
 
-    vec![0.0 as f64; _r as usize]
-        .into_iter()
+    (0.._r)
         .map(|_| {
-            let samp: Vec<f64> = sample_with_replacement(&numbers, &n);
+            let samp: Vec<f64> = sample_with_replacement(&numbers, n as i32);
             let samp_est: f64 = mean(&samp);
             let mut samp_se: f64 = sterr(&samp);
 
@@ -36,11 +37,11 @@ pub extern fn bootstrap_rs(x: *const c_double, _r: c_int, size: c_int) -> *const
         }).collect::<Vec<f64>>().as_mut_ptr()
 }
 
-pub fn sample_with_replacement(x_vector: &Vec<f64>, n_replacements: &usize) -> Vec<f64> {
+pub fn sample_with_replacement(x_vector: &Vec<f64>, n_replacements: i32) -> Vec<f64> {
     let mut rng = rand::thread_rng();
     let size: usize = x_vector.len();
     
-    vec![0.0 as f64; *n_replacements]
+    (0..n_replacements)
         .into_iter()
         .map(|_| {
             x_vector[rng.gen_range(0, size) as usize]

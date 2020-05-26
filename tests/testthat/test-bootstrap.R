@@ -18,3 +18,7 @@ test_that("Rust", {
 test_that("benches", {
   expect_visible(run_benchmarks(runif(100), 10))
 })
+
+test_that("plot", {
+  expect_is(main_plot(), "list")
+})
